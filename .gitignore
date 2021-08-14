@@ -1,0 +1,5 @@
+/.vscode
+**/__pycache__
+db.sqlite3
+/uireader/node_modules
+/uireader/build
