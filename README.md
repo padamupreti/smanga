@@ -53,7 +53,7 @@ Now, run the following to configure manga location:
 ```
 python configure.py <manga-location-on-machine>
 ```
-Here, `<manga-location-on-machine>` is the location where all manga is stored on machine.
+Here, `<manga-location-on-machine>` is the absolute directory location where all manga is stored on machine.
 An optional `-s` flag may be passed to store chapters in database:
 ```
 python configure.py -s <manga-location-on-machine>
