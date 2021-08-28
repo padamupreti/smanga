@@ -1,6 +1,6 @@
 from django.db import models
 
-gen_key = lambda _dir: ''.join([part[0] for part in _dir.split('-')])
+gen_key = lambda _dir: _dir.replace('-', '_')
 
 class Collection(models.Model):
     _id = models.BigAutoField(primary_key=True)
