@@ -5,7 +5,11 @@ Provides a two-page view layout just as reading a physical copy.
 ![Reader Demo](https://i.imgur.com/8JdS584.png)
 
 ## Requirements
-Python(with pip) and Node.js(with npm) installations required.
+
+* [Python](https://python.org/downloads/ "Download Python") (with pip)
+* [Node.js](https://nodejs.org/en/download/ "Download Node.js") (with npm)
+
+**Recommended:** `Python >= v3.8` and `Node.js >= v16.4`
 
 ## Directory structure & naming
 Following naming scheme is to be followed for all manga to be served:
