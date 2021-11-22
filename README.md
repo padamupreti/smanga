@@ -100,6 +100,6 @@ Clicking on the middle of screen activates the following menus:
 Provides slider to quickly move between pages
 
 **Keyboard shortcuts**
-* *&#8595; or &#8592; or spacebar* &#8658; Next couple of pages
-* *&#8593; or &#8594;* &#8658; Previous couple of pages
-* *F key* &#8658; Toggle fullscreen mode
+* <kbd>&#8595;</kbd> / <kbd>&#8592;</kbd> / <kbd>Space</kbd> - Next couple of pages (next view)
+* <kbd>&#8593;</kbd> / <kbd>&#8594;</kbd> - Previous couple of pages (previous view)
+* <kbd>F</kbd> - Toggle fullscreen
