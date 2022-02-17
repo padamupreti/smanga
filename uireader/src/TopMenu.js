@@ -2,11 +2,10 @@ import { Link } from 'react-router-dom'
 
 const TopMenu = (props) => {
     const { showMenus, itemInfo, itemType, itemNum, restruct } = props
-    const classStr = showMenus ? 'top-menu show-menu' : 'top-menu'
     const { name, prev_item: prevItem, next_item: nextItem } = itemInfo
 
     return (
-        <div className={classStr}>
+        <div className={showMenus ? 'top-menu visible-menu' : 'top-menu'}>
             <p>{name}</p>
             <div className="top-buttons">
                 {itemType === 'chapter' && (
