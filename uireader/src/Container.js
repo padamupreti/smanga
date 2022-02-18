@@ -1,17 +1,15 @@
 import { useEffect, useRef } from 'react'
 
-const Container = (props) => {
-    const {
-        baseUrl,
-        itemInfo,
-        itemType,
-        visibilityIndex,
-        containFirstImg,
-        setContainersLen,
-        showFirstContainer,
-        onClick,
-    } = props
-
+const Container = ({
+    baseUrl,
+    itemInfo,
+    itemType,
+    visibilityIndex,
+    containFirstImg,
+    setContainersLen,
+    showFirstContainer,
+    onClick,
+}) => {
     const containerRef = useRef()
 
     useEffect(() => {
@@ -24,13 +22,16 @@ const Container = (props) => {
             img_list: imgList,
         } = imgData
 
-        const bundleImgs = (img_obj_list) => {
+        const bundleImgs = (imgObjList) => {
             const imageContainer = document.createElement('div')
             imageContainer.className = 'img-container'
-            for (let img_obj of img_obj_list) {
+            for (let imgObj of imgObjList) {
                 let image = document.createElement('img')
-                image.src = `${baseUrl}${mediaUrl}${img_obj.image_url}`
-                image.alt = img_obj.name
+                image.setAttribute(
+                    'data-src',
+                    `${baseUrl}${mediaUrl}${imgObj.image_url}`
+                )
+                image.alt = imgObj.name
                 imageContainer.appendChild(image)
             }
             containerRef.current.appendChild(imageContainer)
@@ -66,7 +67,12 @@ const Container = (props) => {
         for (let imgContainer of imgContainers)
             if (imgContainer.classList.contains('visible-container'))
                 imgContainer.classList.remove('visible-container')
-        imgContainers[visibilityIndex].classList.add('visible-container')
+        const visContainer = imgContainers[visibilityIndex]
+        visContainer.classList.add('visible-container')
+        const visImages = visContainer.children
+        for (let visImage of visImages)
+            if (!visImage.hasAttribute('src'))
+                visImage.src = visImage.getAttribute('data-src')
     }, [containFirstImg, itemInfo, visibilityIndex])
 
     return (
