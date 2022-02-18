@@ -18,18 +18,18 @@ const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
                     </button>
                 )}
                 <Link
-                    to={nextItem ? `../${nextItem}/` : '#'}
+                    to={nextItem ? `../${nextItem}/` : '.'}
                     className={`change change-left ${
                         nextItem ? '' : 'disabled'
                     }`}
                 >
                     &lt;
                 </Link>
-                <Link to={`../`} className="change">
+                <Link to="../" className="change">
                     {'#' + itemNum}
                 </Link>
                 <Link
-                    to={prevItem ? `../${prevItem}/` : '#'}
+                    to={prevItem ? `../${prevItem}/` : '.'}
                     className={`change change-right ${
                         prevItem ? '' : 'disabled'
                     }`}
