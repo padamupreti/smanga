@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
-import useFetch from './useFetch'
+import useFetch from '../hooks/useFetch'
 
 const Listings = ({ baseUrl }) => {
     const { data, isPending, error } = useFetch(`${baseUrl}/api/series/`)

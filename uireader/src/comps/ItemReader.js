@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { useParams } from 'react-router'
 import { useEffect, useState, useRef } from 'react'
-import useFetch from './useFetch'
+import useFetch from '../hooks/useFetch'
 import TopMenu from './TopMenu'
 import Container from './Container'
 import BottomMenu from './BottomMenu'

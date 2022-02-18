@@ -1,7 +1,8 @@
 import { useLocation, Link } from 'react-router-dom'
 import { useParams } from 'react-router'
 import { useEffect } from 'react'
-import useFetch from './useFetch'
+import '../styles/itemlistings.scss'
+import useFetch from '../hooks/useFetch'
 
 const ItemListings = ({ baseUrl }) => {
     const { pathname } = useLocation()

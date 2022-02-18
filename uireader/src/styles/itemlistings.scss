@@ -1,0 +1,11 @@
+.home-button {
+    background-color: #333;
+    padding: 0.6rem;
+    margin: 0.8rem 0.8rem 0;
+    width: 7vw;
+    text-align: center;
+
+    &:hover {
+        background-color: #444;
+    }
+}

@@ -1,0 +1,53 @@
+.top-menu {
+    top: 0;
+    padding: 0 5vw;
+    justify-content: space-between;
+    background: linear-gradient(#000, transparent);
+    transform: translateY(-100%);
+
+    p {
+        font-size: 1.3rem;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    .re-toggle {
+        border-radius: 7px;
+        margin-right: 1.3rem !important;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .change {
+        margin: 0 0.2rem;
+        padding: 0.3rem 0.5rem;
+        border: 1px solid #777;
+        background: transparent;
+        color: #fff;
+        font-size: 1rem;
+        font-family: 'Century Gothic', 'Courier New', monospace;
+
+        &:hover {
+            transform: scale(1.05, 1.05);
+        }
+
+        &-left {
+            border-top-left-radius: 7px;
+            border-bottom-left-radius: 7px;
+        }
+
+        &-right {
+            border-top-right-radius: 7px;
+            border-bottom-right-radius: 7px;
+        }
+
+        &-spaced {
+            margin-left: 1rem;
+            border-radius: 7px;
+        }
+    }
+
+    .disabled {
+        cursor: not-allowed;
+        color: #ccc;
+    }
+}

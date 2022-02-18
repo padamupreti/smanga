@@ -1,3 +1,6 @@
+import '../styles/readermenus.scss'
+import '../styles/bottom-menu.scss'
+
 const BottomMenu = ({ showMenus, containersLen, sliderValue, onInput }) => {
     return (
         <div className={showMenus ? 'bottom-menu visible-menu' : 'bottom-menu'}>

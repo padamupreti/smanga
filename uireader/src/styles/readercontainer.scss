@@ -1,0 +1,30 @@
+.container {
+    height: 100vh;
+    width: 80vw;
+    margin: auto;
+    background: transparent;
+
+    .img-container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: row-reverse;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        visibility: hidden;
+        z-index: -1;
+
+        img {
+            height: 100%;
+            width: auto;
+        }
+    }
+}
+
+.visible-container {
+    visibility: visible !important;
+    z-index: 1 !important;
+}

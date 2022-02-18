@@ -1,0 +1,62 @@
+.bottom-menu {
+    bottom: 0;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    background: linear-gradient(to top, #000, transparent);
+    transform: translateY(100%);
+
+    .page {
+        &-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100%;
+            width: 15%;
+
+            .info-text {
+                text-transform: uppercase;
+                font-size: 0.7rem;
+            }
+        }
+
+        &-text {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        &-current,
+        &-pairs {
+            font-weight: 900;
+        }
+    }
+
+    .slider-container {
+        width: 75%;
+
+        .slider {
+            direction: rtl;
+            appearance: none;
+            height: 8px;
+            width: 100%;
+            outline: none;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: transparent;
+
+            &::-webkit-slider-thumb {
+                appearance: none;
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                background: #fff;
+                cursor: pointer;
+                transition: transform 0.1s ease-in-out;
+
+                &:hover {
+                    transform: scale(1.2, 1.2);
+                }
+            }
+        }
+    }
+}

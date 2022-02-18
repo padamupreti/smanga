@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import '../styles/readercontainer.scss'
 
 const Container = ({
     baseUrl,

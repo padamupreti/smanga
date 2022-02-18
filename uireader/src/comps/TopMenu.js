@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import '../styles/readermenus.scss'
+import '../styles/topmenu.scss'
 
 const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
     const { name, prev_item: prevItem, next_item: nextItem } = itemInfo
