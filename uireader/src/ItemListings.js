@@ -3,8 +3,7 @@ import { useParams } from 'react-router'
 import { useEffect } from 'react'
 import useFetch from './useFetch'
 
-const ItemListings = (props) => {
-    const { baseUrl } = props
+const ItemListings = ({ baseUrl }) => {
     const { pathname } = useLocation()
     const itemType = pathname.search('/chapters') >= 0 ? 'chapter' : 'volume'
     const itemTitle = itemType.charAt(0).toUpperCase() + itemType.slice(1)

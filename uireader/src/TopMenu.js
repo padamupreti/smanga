@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const TopMenu = (props) => {
-    const { showMenus, itemInfo, itemType, itemNum, restruct } = props
+const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
     const { name, prev_item: prevItem, next_item: nextItem } = itemInfo
 
     return (

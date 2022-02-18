@@ -6,8 +6,7 @@ import TopMenu from './TopMenu'
 import Container from './Container'
 import BottomMenu from './BottomMenu'
 
-const ItemReader = (props) => {
-    const { baseUrl } = props
+const ItemReader = ({ baseUrl }) => {
     const { pathname } = useLocation()
     const itemType = pathname.search('/chapters') >= 0 ? 'chapter' : 'volume'
     const itemTitle = itemType.charAt(0).toUpperCase() + itemType.slice(1)

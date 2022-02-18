@@ -1,6 +1,4 @@
-const BottomMenu = (props) => {
-    const { showMenus, containersLen, sliderValue, onInput } = props
-
+const BottomMenu = ({ showMenus, containersLen, sliderValue, onInput }) => {
     return (
         <div className={showMenus ? 'bottom-menu visible-menu' : 'bottom-menu'}>
             <div className="page-display">

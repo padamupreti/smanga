@@ -2,8 +2,7 @@ import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import useFetch from './useFetch'
 
-const Listings = (props) => {
-    const { baseUrl } = props
+const Listings = ({ baseUrl }) => {
     const { data, isPending, error } = useFetch(`${baseUrl}/api/series/`)
 
     useEffect(() => (document.title = 'MangaViewer'), [])
