@@ -1,5 +1,5 @@
 import { useState, useLayoutEffect } from 'react'
-import LazyImg from './LazyImg'
+import ImageContainer from './ImageContainer'
 import '../styles/readercontainer.scss'
 
 const Container = ({
@@ -65,16 +65,16 @@ const Container = ({
                     key={`${genViewDataKey(viewData)}`}
                     className={
                         viewDataList.indexOf(viewData) === visibilityIndex
-                            ? 'img-container visible-container'
-                            : 'img-container'
+                            ? 'view-container visible-container'
+                            : 'view-container'
                     }
                 >
                     {viewData.map((imgData) => (
-                        <LazyImg
+                        <ImageContainer
                             key={`${imgData.name}`}
                             dataSrc={`${baseUrl}${mediaUrl}${imgData.image_url}`}
-                            alt={`${imgData.name}`}
-                            imgContainerIndex={viewDataList.indexOf(viewData)}
+                            imgAlt={`${imgData.name}`}
+                            viewContainerIndex={viewDataList.indexOf(viewData)}
                             visibilityIndex={visibilityIndex}
                         />
                     ))}

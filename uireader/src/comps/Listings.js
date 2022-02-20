@@ -16,7 +16,13 @@ const Listings = ({ baseUrl }) => {
             )}
             {isPending && (
                 <div className="msg-div">
-                    <div>Loading ...</div>
+                    <div>
+                        <div className="loader-inner ball-pulse-sync">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
                 </div>
             )}
             {data && (

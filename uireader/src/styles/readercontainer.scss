@@ -4,7 +4,7 @@
     margin: auto;
     background: transparent;
 
-    .img-container {
+    .view-container {
         height: 100%;
         width: 100%;
         display: flex;
@@ -17,9 +17,18 @@
         visibility: hidden;
         z-index: -1;
 
-        img {
-            height: 100%;
-            width: auto;
+        .img-container {
+            .img-overlay {
+                display: grid;
+                place-items: center;
+                height: 100%;
+                width: 30vw;
+            }
+
+            img {
+                height: 100%;
+                width: auto;
+            }
         }
     }
 }
