@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { useParams } from 'react-router'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import useFetch from '../hooks/useFetch'
 import TopMenu from './TopMenu'
 import Container from './Container'
@@ -16,7 +16,7 @@ const ItemReader = ({ baseUrl }) => {
 
     const [containFirstImg, setContainFirstImg] = useState(true)
     const [showMenus, setShowMenus] = useState(false)
-    const containersLen = useRef(0)
+    const [containersLen, setContainersLen] = useState(0)
     const [visibilityIndex, setVisibilityIndex] = useState(0)
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const ItemReader = ({ baseUrl }) => {
                 e.code === 'ArrowLeft' ||
                 e.code === 'ArrowDown'
             ) {
-                const lastIndex = containersLen.current - 1
+                const lastIndex = containersLen - 1
                 if (visibilityIndex < lastIndex)
                     setVisibilityIndex(visibilityIndex + 1)
             } else if (e.code === 'ArrowRight' || e.code === 'ArrowUp') {
@@ -44,10 +44,9 @@ const ItemReader = ({ baseUrl }) => {
 
         window.addEventListener('keydown', handleKeyPress)
         return () => window.removeEventListener('keydown', handleKeyPress)
-    }, [visibilityIndex])
+    }, [containersLen, visibilityIndex])
 
     const restructureContainers = () => setContainFirstImg(!containFirstImg)
-    const setContainersLen = (length) => (containersLen.current = length)
     const showFirstContainer = () => setVisibilityIndex(0)
     const handleClick = () => setShowMenus(!showMenus)
     const handleSliderInput = (e) =>
@@ -86,7 +85,7 @@ const ItemReader = ({ baseUrl }) => {
                     />
                     <BottomMenu
                         showMenus={showMenus}
-                        containersLen={containersLen.current}
+                        containersLen={containersLen}
                         sliderValue={visibilityIndex + 1}
                         onInput={handleSliderInput}
                     />

@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useState, useLayoutEffect } from 'react'
+import LazyImg from './LazyImg'
 import '../styles/readercontainer.scss'
 
 const Container = ({
@@ -11,38 +12,19 @@ const Container = ({
     showFirstContainer,
     onClick,
 }) => {
-    const containerRef = useRef()
+    const [viewDataList, setViewDataList] = useState([])
+    const { img_data: imgData } = itemInfo
+    const { media_url: mediaUrl } = imgData
 
-    useEffect(() => {
-        containerRef.current.innerHTML = ''
-
-        const { img_data: imgData } = itemInfo
-        const {
-            common_width: commonWidth,
-            media_url: mediaUrl,
-            img_list: imgList,
-        } = imgData
-
-        const bundleImgs = (imgObjList) => {
-            const imageContainer = document.createElement('div')
-            imageContainer.className = 'img-container'
-            for (let imgObj of imgObjList) {
-                let image = document.createElement('img')
-                image.setAttribute(
-                    'data-src',
-                    `${baseUrl}${mediaUrl}${imgObj.image_url}`
-                )
-                image.alt = imgObj.name
-                imageContainer.appendChild(image)
-            }
-            containerRef.current.appendChild(imageContainer)
-        }
+    useLayoutEffect(() => {
+        let tempViewList = []
+        const { common_width: commonWidth, img_list: imgList } = imgData
 
         let toSkip = false
         for (let i = 0; i < imgList.length; i++) {
             const img = imgList[i]
             if (itemType === 'chapter' && containFirstImg && i === 0) {
-                bundleImgs([img])
+                tempViewList.push([img])
                 continue
             }
             if (img.width / commonWidth <= 1.4) {
@@ -54,34 +36,51 @@ const Container = ({
                         imgObjList.push(nextImg)
                         toSkip = true
                     }
-                    bundleImgs(imgObjList)
+                    tempViewList.push(imgObjList)
                 } else toSkip = false
-            } else bundleImgs([img])
+            } else tempViewList.push([img])
         }
 
-        setContainersLen(containerRef.current.children.length)
+        setViewDataList(tempViewList)
+        setContainersLen(tempViewList.length)
         showFirstContainer()
     }, [containFirstImg, baseUrl, itemInfo]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    useEffect(() => {
-        const imgContainers = containerRef.current.children
-        for (let imgContainer of imgContainers)
-            if (imgContainer.classList.contains('visible-container'))
-                imgContainer.classList.remove('visible-container')
-        const visContainer = imgContainers[visibilityIndex]
-        visContainer.classList.add('visible-container')
-        const visImages = visContainer.children
-        for (let visImage of visImages)
-            if (!visImage.hasAttribute('src'))
-                visImage.src = visImage.getAttribute('data-src')
-    }, [containFirstImg, itemInfo, visibilityIndex])
+    const genViewDataKey = (viewData) => {
+        let key = ''
+        viewData.forEach(
+            (imgData) =>
+                (key +=
+                    viewData[0] === imgData
+                        ? imgData.image_url
+                        : `+${imgData.image_url}`)
+        )
+        return key
+    }
 
     return (
-        <div
-            className="container"
-            ref={containerRef}
-            onClick={() => onClick()}
-        />
+        <div className="container" onClick={onClick}>
+            {viewDataList.map((viewData) => (
+                <div
+                    key={`${genViewDataKey(viewData)}`}
+                    className={
+                        viewDataList.indexOf(viewData) === visibilityIndex
+                            ? 'img-container visible-container'
+                            : 'img-container'
+                    }
+                >
+                    {viewData.map((imgData) => (
+                        <LazyImg
+                            key={`${imgData.name}`}
+                            dataSrc={`${baseUrl}${mediaUrl}${imgData.image_url}`}
+                            alt={`${imgData.name}`}
+                            imgContainerIndex={viewDataList.indexOf(viewData)}
+                            visibilityIndex={visibilityIndex}
+                        />
+                    ))}
+                </div>
+            ))}
+        </div>
     )
 }
 
