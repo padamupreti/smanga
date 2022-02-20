@@ -10,7 +10,7 @@ const ImageContainer = ({
     const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
-        if (viewContainerIndex === visibilityIndex) setSrc(dataSrc)
+        if (Math.abs(viewContainerIndex - visibilityIndex) <= 2) setSrc(dataSrc)
     }, [viewContainerIndex, dataSrc, visibilityIndex])
 
     return (
