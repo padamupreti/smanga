@@ -1,7 +1,7 @@
+import { useEffect } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { useParams } from 'react-router'
-import { useEffect } from 'react'
-import '../styles/itemlistings.scss'
+import { FaHome } from 'react-icons/fa'
 import useFetch from '../hooks/useFetch'
 
 const ItemListings = ({ baseUrl }) => {
@@ -35,29 +35,23 @@ const ItemListings = ({ baseUrl }) => {
             )}
             {data && (
                 <>
-                    <Link to="/" className="home-button">
-                        Home
+                    <Link to="/" className="item-btn">
+                        <FaHome /> Home
                     </Link>
-                    <table className="list-table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    {`${itemTitle}s`} - {data.name}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data[`${itemType}s`].map((itemNum) => (
-                                <tr key={itemNum}>
-                                    <td>
-                                        <Link to={`${itemNum}/`}>
-                                            {`${itemTitle}`} {'#' + itemNum}
-                                        </Link>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <h1 className="heading">
+                        {`${itemTitle}s`} - {data.name}
+                    </h1>
+                    <div className="items-container">
+                        {data[`${itemType}s`].map((itemNum) => (
+                            <Link
+                                key={itemNum}
+                                className="item-btn"
+                                to={`${itemNum}/`}
+                            >
+                                {itemNum}
+                            </Link>
+                        ))}
+                    </div>
                 </>
             )}
         </>

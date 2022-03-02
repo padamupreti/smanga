@@ -6,7 +6,7 @@
     transform: translateY(-100%);
 
     p {
-        font-size: 1.3rem;
+        font-size: 1.6rem;
         font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
@@ -19,7 +19,7 @@
 
     .change {
         margin: 0 0.2rem;
-        padding: 0.3rem 0.5rem;
+        padding: 0.5rem 0.5rem 0.4rem;
         border: 1px solid #777;
         background: transparent;
         color: #fff;
@@ -38,6 +38,11 @@
         &-right {
             border-top-right-radius: 7px;
             border-bottom-right-radius: 7px;
+        }
+
+        &-text {
+            padding: 0.5rem;
+            font-weight: bold;
         }
 
         &-spaced {

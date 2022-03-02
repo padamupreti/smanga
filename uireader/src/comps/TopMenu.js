@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { FaRedoAlt, FaArrowLeft, FaArrowRight, FaHome } from 'react-icons/fa'
 import '../styles/readermenus.scss'
 import '../styles/topmenu.scss'
 
@@ -8,13 +9,13 @@ const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
     return (
         <div className={showMenus ? 'top-menu visible-menu' : 'top-menu'}>
             <p>{name}</p>
-            <div className="top-buttons">
+            <div>
                 {itemType === 'chapter' && (
                     <button
                         className="change re-toggle"
                         onClick={() => restruct()}
                     >
-                        Re
+                        <FaRedoAlt />
                     </button>
                 )}
                 <Link
@@ -23,9 +24,9 @@ const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
                         nextItem ? '' : 'disabled'
                     }`}
                 >
-                    &lt;
+                    <FaArrowLeft />
                 </Link>
-                <Link to="../" className="change">
+                <Link to="../" className="change change-text">
                     {'#' + itemNum}
                 </Link>
                 <Link
@@ -34,10 +35,10 @@ const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
                         prevItem ? '' : 'disabled'
                     }`}
                 >
-                    &gt;
+                    <FaArrowRight />
                 </Link>
                 <Link to="/" className="change change-spaced">
-                    Home
+                    <FaHome />
                 </Link>
             </div>
         </div>

@@ -31,35 +31,44 @@ a {
     z-index: 10;
 }
 
-.list-table {
-    border-collapse: collapse;
+.heading {
+    margin-top: 0.3rem;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.items-container {
     width: 90%;
     margin: 0.6rem auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
 
-    th,
-    td {
-        padding: 0.6rem;
-        border-bottom: 1px solid #777;
+.basic-btn {
+    display: inline-block;
+    background-color: #333;
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+
+    &:hover {
+        background-color: #444;
     }
+}
 
-    th {
-        font-family: Georgia, 'Times New Roman', Times, serif;
-        font-size: 1.1rem;
-        background-color: #efefef;
-        color: #000;
+.item-btn {
+    @extend .basic-btn;
+    margin: 0.4rem;
+
+    &:hover {
+        cursor: pointer;
     }
+}
 
-    td {
-        &:hover {
-            background-color: #333;
-        }
-
-        a {
-            transition: transform 0.05s;
-
-            &:hover {
-                transform: translateX(7%);
-            }
-        }
-    }
+.home-btn {
+    @extend .basic-btn;
+    margin: 0 0.4rem;
 }

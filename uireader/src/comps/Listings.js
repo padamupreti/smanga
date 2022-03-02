@@ -26,39 +26,35 @@ const Listings = ({ baseUrl }) => {
                 </div>
             )}
             {data && (
-                <table className="list-table">
-                    <thead>
-                        <tr>
-                            <th>Series</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <>
+                    <h1 className="heading">Series</h1>
+                    <div className="items-container">
                         {Object.keys(data).map(
                             (series) =>
                                 data[series].has_chapters && (
-                                    <tr key={`${series}-chapters`}>
-                                        <td>
-                                            <Link to={`${series}/chapters/`}>
-                                                {data[series].name}
-                                            </Link>
-                                        </td>
-                                    </tr>
+                                    <Link
+                                        key={`${series}-chapters`}
+                                        className="item-btn"
+                                        to={`${series}/chapters/`}
+                                    >
+                                        {data[series].name}
+                                    </Link>
                                 )
                         )}
                         {Object.keys(data).map(
                             (series) =>
                                 data[series].has_volumes && (
-                                    <tr key={`${series}-volumes`}>
-                                        <td>
-                                            <Link to={`${series}/volumes/`}>
-                                                {data[series].name} (Volumes)
-                                            </Link>
-                                        </td>
-                                    </tr>
+                                    <Link
+                                        key={`${series}-volumes`}
+                                        className="item-btn"
+                                        to={`${series}/volumes/`}
+                                    >
+                                        {data[series].name} (Volumes)
+                                    </Link>
                                 )
                         )}
-                    </tbody>
-                </table>
+                    </div>
+                </>
             )}
         </>
     )

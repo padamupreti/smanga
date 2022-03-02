@@ -1,3 +1,4 @@
+import { FaBookOpen } from 'react-icons/fa'
 import '../styles/readermenus.scss'
 import '../styles/bottom-menu.scss'
 
@@ -10,7 +11,9 @@ const BottomMenu = ({ showMenus, containersLen, sliderValue, onInput }) => {
                     of
                     <span className="page-pairs"> {containersLen}</span>
                 </p>
-                <p className="info-text">views</p>
+                <p className="info-text">
+                    <FaBookOpen /> views
+                </p>
             </div>
             <div className="slider-container">
                 <input
