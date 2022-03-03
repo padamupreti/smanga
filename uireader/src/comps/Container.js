@@ -29,8 +29,7 @@ const Container = ({
             }
             if (img.width / commonWidth <= 1.4) {
                 if (!toSkip) {
-                    let imgObjList = []
-                    imgObjList.push(img)
+                    let imgObjList = [img]
                     const nextImg = imgList[i + 1]
                     if (nextImg && nextImg.width / commonWidth <= 1.4) {
                         imgObjList.push(nextImg)
