@@ -1,6 +1,6 @@
 # smanga
 
-A minimalistic manga reader/server for serving local manga images on desktop browser.\
+A manga reader/server for serving local manga images on desktop browser.\
 Provides a two-page view layout just as reading a physical copy.
 
 ![Reader Demo](https://i.imgur.com/80m8qNf.png)
@@ -124,4 +124,5 @@ Provides slider to quickly move between pages
 
 -   <kbd>&#8595;</kbd> / <kbd>&#8592;</kbd> / <kbd>Space</kbd> - Next couple of pages (next view)
 -   <kbd>&#8593;</kbd> / <kbd>&#8594;</kbd> - Previous couple of pages (previous view)
--   <kbd>F</kbd> - Toggle fullscreen
+-   <kbd>F</kbd> - Toggle fullscreen mode
+-   <kbd>M</kbd> - Toggle magnified mode
