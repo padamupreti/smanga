@@ -24,7 +24,7 @@ const ItemReader = ({ baseUrl }) => {
     }, [data, itemTitle, itemNum])
 
     useEffect(() => {
-        const handleKeyPress = (e) => {
+        const handleKeyDown = (e) => {
             if (
                 e.code === 'Space' ||
                 e.code === 'ArrowLeft' ||
@@ -42,8 +42,8 @@ const ItemReader = ({ baseUrl }) => {
             }
         }
 
-        window.addEventListener('keydown', handleKeyPress)
-        return () => window.removeEventListener('keydown', handleKeyPress)
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
     }, [containersLen, visibilityIndex])
 
     const restructureContainers = () => setContainFirstImg(!containFirstImg)
