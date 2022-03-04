@@ -18,6 +18,7 @@ const ItemReader = ({ baseUrl }) => {
     const [showMenus, setShowMenus] = useState(false)
     const [containersLen, setContainersLen] = useState(0)
     const [visibilityIndex, setVisibilityIndex] = useState(0)
+    const [isMagEnabled, setIsMagEnabled] = useState(false)
 
     useEffect(() => {
         if (data) document.title = `${data.name} | ${itemTitle} ${itemNum}`
@@ -39,12 +40,12 @@ const ItemReader = ({ baseUrl }) => {
                 if (document.fullscreenElement === null)
                     document.documentElement.requestFullscreen()
                 else document.exitFullscreen()
-            }
+            } else if (e.code === 'KeyM') setIsMagEnabled(!isMagEnabled)
         }
 
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [containersLen, visibilityIndex])
+    }, [containersLen, visibilityIndex, isMagEnabled])
 
     const restructureContainers = () => setContainFirstImg(!containFirstImg)
     const showFirstContainer = () => setVisibilityIndex(0)
@@ -84,6 +85,7 @@ const ItemReader = ({ baseUrl }) => {
                         itemInfo={data}
                         itemType={itemType}
                         visibilityIndex={visibilityIndex}
+                        isMagEnabled={isMagEnabled}
                         containFirstImg={containFirstImg}
                         setContainersLen={setContainersLen}
                         showFirstContainer={showFirstContainer}

@@ -7,6 +7,7 @@ const Container = ({
     itemInfo,
     itemType,
     visibilityIndex,
+    isMagEnabled,
     containFirstImg,
     setContainersLen,
     showFirstContainer,
@@ -75,6 +76,7 @@ const Container = ({
                             imgAlt={`${imgData.name}`}
                             viewContainerIndex={viewDataList.indexOf(viewData)}
                             visibilityIndex={visibilityIndex}
+                            isMagEnabled={isMagEnabled}
                         />
                     ))}
                 </div>

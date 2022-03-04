@@ -16,6 +16,13 @@
         transform: translate(-50%, -50%);
         visibility: hidden;
         z-index: -1;
+        overflow: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
         .img-container {
             .img-overlay {
@@ -25,9 +32,14 @@
                 width: 30vw;
             }
 
-            img {
+            .image {
                 height: 100%;
                 width: auto;
+            }
+
+            .image-enlarged {
+                width: 100%;
+                height: auto;
             }
         }
     }

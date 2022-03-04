@@ -5,13 +5,19 @@ const ImageContainer = ({
     imgAlt,
     viewContainerIndex,
     visibilityIndex,
+    isMagEnabled,
 }) => {
     const [src, setSrc] = useState('')
     const [loaded, setLoaded] = useState(false)
+    const [clist, setClist] = useState('image')
 
     useEffect(() => {
         if (Math.abs(viewContainerIndex - visibilityIndex) <= 2) setSrc(dataSrc)
     }, [viewContainerIndex, dataSrc, visibilityIndex])
+
+    useEffect(() => {
+        isMagEnabled ? setClist('image image-enlarged') : setClist('image')
+    }, [isMagEnabled])
 
     return (
         <div className="img-container">
@@ -22,7 +28,12 @@ const ImageContainer = ({
                     </div>
                 </div>
             )}
-            <img src={src} alt={imgAlt} onLoad={() => setLoaded(true)} />
+            <img
+                src={src}
+                alt={imgAlt}
+                className={clist}
+                onLoad={() => setLoaded(true)}
+            />
         </div>
     )
 }
