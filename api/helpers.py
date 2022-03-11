@@ -42,10 +42,8 @@ def get_img_list(rel_ch_path):
     ch_path = media_root / rel_ch_path
     img_list = []
     for image_path in ch_path.iterdir():
-        name = basename(image_path)
         data = {
-            'name': name,
-            'image_url': f'{rel_ch_path}/{name}',
+            'image_url': f'{rel_ch_path}/{basename(image_path)}',
             'width': get_img_width(image_path)
         }
         img_list.append(data)

@@ -71,9 +71,9 @@ const Container = ({
                 >
                     {viewData.map((imgData) => (
                         <ImageContainer
-                            key={`${imgData.name}`}
+                            key={`${imgData.image_url}`}
                             dataSrc={`${baseUrl}${mediaUrl}${imgData.image_url}`}
-                            imgAlt={`${imgData.name}`}
+                            imgAlt={`${imgData.image_url}`}
                             viewContainerIndex={viewDataList.indexOf(viewData)}
                             visibilityIndex={visibilityIndex}
                             isMagEnabled={isMagEnabled}
