@@ -28,10 +28,6 @@ urlpatterns = [
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns += [
-    path('', TemplateView.as_view(template_name='index.html')),
-    re_path(r'[a-z\-]+/chapters/', TemplateView.as_view(template_name='index.html')),
-    re_path(r'[a-z\-]+/volumes/', TemplateView.as_view(template_name='index.html')),
-    re_path(r'[a-z\-]+/chapters/[0-9\.]+/', TemplateView.as_view(template_name='index.html')),
-    re_path(r'[a-z\-]+/volumes/[0-9\.]+/', TemplateView.as_view(template_name='index.html')),
-]
+react_spa_urls = [r'', r'[a-z\-]+/chapters/', r'[a-z\-]+/volumes/',
+    r'[a-z\-]+/chapters/[0-9\.]+/', r'[a-z\-]+/volumes/[0-9\.]+/']
+urlpatterns += [re_path(spa_url, TemplateView.as_view(template_name='index.html')) for spa_url in react_spa_urls]
