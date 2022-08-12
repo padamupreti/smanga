@@ -5,7 +5,9 @@ import useFetch from '../hooks/useFetch'
 const Listings = ({ baseUrl }) => {
     const { data, isPending, error } = useFetch(`${baseUrl}/api/series/`)
 
-    useEffect(() => (document.title = 'MangaViewer'), [])
+    useEffect(() => {
+        document.title = 'Mangaviewer'
+    }, [])
 
     return (
         <>
