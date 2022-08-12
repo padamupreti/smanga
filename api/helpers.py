@@ -10,7 +10,9 @@ media_url = settings.MEDIA_URL
 
 def get_dirnames(path=''):
     abs_path = media_root / path
-    return [basename(d) for d in abs_path.iterdir() if isdir(d)]
+    items = [basename(d) for d in abs_path.iterdir() if isdir(d)]
+    items.sort()
+    return items
 
 def get_series_data():
     dash_removal = lambda phrase: ' '.join([part.capitalize() for part in phrase.split('-')])
