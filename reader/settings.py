@@ -132,7 +132,7 @@ STATICFILES_DIRS = [
 ]
 
 # MEDIA_ROOT = BASE_DIR / 'static/images'
-MEDIA_ROOT = Path(r'D:\Documents\Manga').resolve()
+MEDIA_ROOT = Path(r'/home/padam/Others/Manga').resolve()
 
 CORS_ORIGIN_ALLOW_ALL = False
 
