@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Listings from './comps/Listings'
 import ItemListings from './comps/ItemListings'
 import ItemReader from './comps/ItemReader'
@@ -8,23 +8,31 @@ const App = () => {
 
     return (
         <Router>
-                <Switch>
-                    <Route exact path="/">
-                        <Listings baseUrl={baseUrl} />
-                    </Route>
-                    <Route exact path="/:series/chapters/">
-                        <ItemListings baseUrl={baseUrl} />
-                    </Route>
-                    <Route exact path="/:series/volumes/">
-                        <ItemListings baseUrl={baseUrl} />
-                    </Route>
-                    <Route path="/:series/chapters/:item/">
-                        <ItemReader baseUrl={baseUrl} />
-                    </Route>
-                    <Route path="/:series/volumes/:item/">
-                        <ItemReader baseUrl={baseUrl} />
-                    </Route>
-                </Switch>
+            <Routes>
+                <Route
+                    exact
+                    path="/"
+                    element={<Listings baseUrl={baseUrl} />}
+                />
+                <Route
+                    exact
+                    path="/:series/chapters/"
+                    element={<ItemListings baseUrl={baseUrl} />}
+                />
+                <Route
+                    exact
+                    path="/:series/volumes/"
+                    element={<ItemListings baseUrl={baseUrl} />}
+                />
+                <Route
+                    path="/:series/chapters/:item/"
+                    element={<ItemReader baseUrl={baseUrl} />}
+                />
+                <Route
+                    path="/:series/volumes/:item/"
+                    element={<ItemReader baseUrl={baseUrl} />}
+                />
+            </Routes>
         </Router>
     )
 }
