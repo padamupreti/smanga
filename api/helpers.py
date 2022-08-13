@@ -61,34 +61,16 @@ def get_img_data(series, item_type, item_num):
         common_width = queryset[0].common_img_width
         img_list = queryset[0].img_list
         return {'common_width': common_width, 'media_url': media_url, 'img_list': img_list}
-    elif item_type == 'chapter':
-        relative_path = f'{series}/chapters/{item_num}'
-        abs_path = media_root / relative_path
-        common_width = get_common_width(abs_path)
-        img_list = get_img_list(relative_path)
-        if settings.STORE_CH:
-            Collection.objects.create(
-                series=series,
-                collection_type=item_type,
-                item_num=item_num,
-                common_img_width=common_width,
-                img_list=img_list
-            )
-        return {'common_width': common_width, 'media_url': media_url, 'img_list': img_list}
-    elif item_type == 'volume':
-        relative_path = f'{series}/volumes/{item_num}'
-        abs_path = media_root / relative_path
-        widths = []
-        vol_images = []
-        for chapter_path in abs_path.iterdir():
-            widths.append(get_common_width(chapter_path))
-            vol_images += get_img_list(f'{relative_path}/{basename(chapter_path)}')
-        common_width = mode(widths)
+    relative_path = f'{series}/{item_type}s/{item_num}'
+    abs_path = media_root / relative_path
+    common_width = get_common_width(abs_path)
+    img_list = get_img_list(relative_path)
+    if item_type == 'volume' or (item_type == 'chapter' and settings.STORE_CH):
         Collection.objects.create(
             series=series,
             collection_type=item_type,
             item_num=item_num,
             common_img_width=common_width,
-            img_list=vol_images
+            img_list=img_list
         )
-        return {'common_width': common_width, 'media_url': media_url, 'img_list': vol_images}
+    return {'common_width': common_width, 'media_url': media_url, 'img_list': img_list}

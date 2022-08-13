@@ -28,9 +28,8 @@ Following naming scheme is to be followed for all manga to be served:
             ...
         |-- volumes/
             |-- 030/
-                |-- 0120/
-                    |-- 001.png
-                    ...
+                |-- 001.png
+                |-- 002.png
                 ...
             |-- 031/
             ...
@@ -41,13 +40,13 @@ Following naming scheme is to be followed for all manga to be served:
 Series require their own folder, like `one-piece` or `attack-on-titan` in _dash-case_.\
 Within each, `chapters/`, `volumes/` or both are to be created.
 
-**NOTE**: `volumes/` needs to have chapter folders; each folder having images pertaining to the chapter
-
 | Item    | No. of characters for naming | Naming example                 |
 | ------- | ---------------------------- | ------------------------------ |
 | Chapter | 4                            | Chapter 220 &#8658; `0220/`    |
 | Volume  | 3                            | Volume 100 &#8658; `100/`      |
 | Image   | 3                            | Fourth image &#8658; `004.png` |
+
+Explicit renaming of images is not needed, however the no. of characters for denoting the page should be 3.
 
 ## Initial Setup
 
