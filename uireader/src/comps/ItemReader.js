@@ -29,12 +29,17 @@ const ItemReader = ({ baseUrl }) => {
             if (
                 e.code === 'Space' ||
                 e.code === 'ArrowLeft' ||
-                e.code === 'ArrowDown'
+                e.code === 'ArrowDown' ||
+                e.code === 'KeyJ'
             ) {
                 const lastIndex = containersLen - 1
                 if (visibilityIndex < lastIndex)
                     setVisibilityIndex(visibilityIndex + 1)
-            } else if (e.code === 'ArrowRight' || e.code === 'ArrowUp') {
+            } else if (
+                e.code === 'ArrowRight' ||
+                e.code === 'ArrowUp' ||
+                e.code === 'KeyL'
+            ) {
                 if (visibilityIndex > 0) setVisibilityIndex(visibilityIndex - 1)
             } else if (e.code === 'KeyF') {
                 if (document.fullscreenElement === null)

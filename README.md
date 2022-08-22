@@ -121,7 +121,7 @@ Provides slider to quickly move between pages
 
 **Keyboard shortcuts**
 
--   <kbd>&#8595;</kbd> / <kbd>&#8592;</kbd> / <kbd>Space</kbd> - Next couple of pages (next view)
--   <kbd>&#8593;</kbd> / <kbd>&#8594;</kbd> - Previous couple of pages (previous view)
+-   <kbd>J</kbd> / <kbd>&#8595;</kbd> / <kbd>&#8592;</kbd> / <kbd>Space</kbd> - Next couple of pages (next view)
+-   <kbd>L</kbd> / <kbd>&#8593;</kbd> / <kbd>&#8594;</kbd> - Previous couple of pages (previous view)
 -   <kbd>F</kbd> - Toggle fullscreen mode
 -   <kbd>M</kbd> - Toggle magnified mode
