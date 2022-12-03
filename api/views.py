@@ -3,19 +3,26 @@ from rest_framework.response import Response
 
 from .helpers import (
     get_dirnames,
+    get_cbz_names,
     get_series_data,
     get_sibling_items,
-    get_img_data
+    get_img_data,
+    extract_cbz,
+    remove_extracted
 )
 
 series_data = get_series_data()
 
-@api_view(['GET'])
-def series_view(request, format=None):
-    return Response(series_data)
 
 @api_view(['GET'])
-def items_list(request, series, format=None):
+def series_view(request):
+    data = series_data
+    data['cbz_list'] = get_cbz_names()
+    return Response(series_data)
+
+
+@api_view(['GET'])
+def items_list(request, series):
     item_str = '/chapters' if '/chapters' in request.path else '/volumes'
     data = {
         'name': series_data[series]['name'],
@@ -23,8 +30,14 @@ def items_list(request, series, format=None):
     }
     return Response(data)
 
+
 @api_view(['GET'])
-def item_data(request, series, item, format=None):
+def item_data(request, series=None, item=None, filename=None):
+    if '/api/cbz/' in request.path:
+        # TODO: get the filename from url
+        # extract_cbz(filename)
+        info = extract_cbz('Chainsaw Man v10 (2022) (Digital) (1r0n).cbz')
+        return Response(info)
     item_str = '/chapters' if '/chapters' in request.path else '/volumes'
     items = get_dirnames(f'{series}{item_str}')
     siblings = get_sibling_items(item, items)
