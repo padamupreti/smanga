@@ -16,9 +16,9 @@ series_data = get_series_data()
 
 @api_view(['GET'])
 def series_view(request):
-    data = series_data
+    data = series_data.copy()
     data['cbz_list'] = get_cbz_names()
-    return Response(series_data)
+    return Response(data)
 
 
 @api_view(['GET'])
@@ -36,7 +36,7 @@ def item_data(request, series=None, item=None, filename=None):
     if '/api/cbz/' in request.path:
         # TODO: get the filename from url
         # extract_cbz(filename)
-        info = extract_cbz('Chainsaw Man v10 (2022) (Digital) (1r0n).cbz')
+        info = extract_cbz('Chainsaw Man v11 (2022) (Digital) (1r0n) (f).cbz')
         return Response(info)
     item_str = '/chapters' if '/chapters' in request.path else '/volumes'
     items = get_dirnames(f'{series}{item_str}')

@@ -32,6 +32,10 @@ const App = () => {
                     path="/:series/volumes/:item/"
                     element={<ItemReader baseUrl={baseUrl} />}
                 />
+                <Route
+                    path="/cbz/"
+                    element={<ItemReader baseUrl={baseUrl} />}
+                />
             </Routes>
         </Router>
     )

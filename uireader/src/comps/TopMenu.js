@@ -8,7 +8,7 @@ const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
 
     return (
         <div className={showMenus ? 'top-menu visible-menu' : 'top-menu'}>
-            <p>{name}</p>
+            <p>{name ? name : 'CBZ Viewer'}</p>
             <div>
                 {itemType === 'chapter' && (
                     <button
@@ -26,9 +26,11 @@ const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
                 >
                     <FaArrowLeft />
                 </Link>
-                <Link to="./../" className="change change-text">
-                    {'#' + itemNum}
-                </Link>
+                {itemNum && (
+                    <Link to="./../" className="change change-text">
+                        {'#' + itemNum}
+                    </Link>
+                )}
                 <Link
                     to={prevItem ? `./../${prevItem}/` : '.'}
                     className={`change change-right ${

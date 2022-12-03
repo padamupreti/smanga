@@ -56,6 +56,15 @@ const Listings = ({ baseUrl }) => {
                                 )
                         )}
                     </div>
+                    {/* TODO: make sure cbz list is not empty */}
+                    <h1 className="heading">Unmanaged CBZs</h1>
+                    <div className="items-container">
+                        {data.cbz_list.map((itemName) => (
+                            <Link key={itemName} className="item-btn" to="cbz/">
+                                {itemName}
+                            </Link>
+                        ))}
+                    </div>
                 </>
             )}
         </>

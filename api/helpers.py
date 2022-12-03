@@ -30,6 +30,7 @@ def get_series_data():
             'has_chapters': has_items('chapters', _dir),
             'has_volumes': has_items('volumes', _dir)
         }
+    del series_data['.extract']
     return series_data
 
 
@@ -109,7 +110,9 @@ def extract_cbz(filename):
         with zipfile.ZipFile(cbz_filepath) as archive:
             extract_path = media_root / '.extract' / filename.rstrip('.cbz')
             archive.extractall(path=extract_path)
-            for filename in archive.namelist():
+            sorted_namelist = archive.namelist().copy()
+            sorted_namelist.sort()
+            for filename in sorted_namelist:
                 item_path = extract_path / filename
                 # TODO: make sure item_path belongs to valid image
                 datalist.append({

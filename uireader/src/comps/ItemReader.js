@@ -11,7 +11,12 @@ const ItemReader = ({ baseUrl }) => {
     const itemType = pathname.search('/chapters') >= 0 ? 'chapter' : 'volume'
     const itemTitle = itemType.charAt(0).toUpperCase() + itemType.slice(1)
     const { series, item: itemNum } = useParams()
-    const fetchUrl = `${baseUrl}/api/series/${series}/${itemType}s/${itemNum}/`
+    let fetchUrl
+    if (series && itemNum) {
+        fetchUrl = `${baseUrl}/api/series/${series}/${itemType}s/${itemNum}/`
+    } else {
+        fetchUrl = `${baseUrl}/api/cbz/`
+    }
     const { data, isPending, error } = useFetch(fetchUrl)
 
     const [containFirstImg, setContainFirstImg] = useState(true)
