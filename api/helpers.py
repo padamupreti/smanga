@@ -47,9 +47,9 @@ def get_img_width(image_path):
     return image_width
 
 
-def get_common_width(chapter_path):
+def get_common_width(image_pathlist):
     widths = [get_img_width(image_path)
-              for image_path in chapter_path.iterdir()]
+              for image_path in image_pathlist]
     return mode(widths)
 
 
@@ -77,6 +77,7 @@ def get_img_data(series, item_type, item_num):
         return {'common_width': common_width, 'media_url': media_url, 'img_list': img_list}
     relative_path = f'{series}/{item_type}s/{item_num}'
     abs_path = media_root / relative_path
+    # TODO fix get_common_width call below passing image path list
     common_width = get_common_width(abs_path)
     img_list = get_img_list(relative_path)
     if item_type == 'volume' or (item_type == 'chapter' and settings.STORE_CH):
@@ -112,6 +113,7 @@ def extract_cbz(filename):
             archive.extractall(path=extract_path)
             sorted_namelist = archive.namelist().copy()
             sorted_namelist.sort()
+            print(f'SORTED NAMELIST: {sorted_namelist}')
             for filename in sorted_namelist:
                 item_path = extract_path / filename
                 # TODO: make sure item_path belongs to valid image
@@ -120,7 +122,7 @@ def extract_cbz(filename):
                     'width': get_img_width(item_path)
                 })
             return {'img_data': {
-                'common_width': get_common_width(extract_path),
+                'common_width': get_common_width([extract_path / f for f in sorted_namelist]),
                 'media_url': media_url,
                 'img_list': datalist
             }}

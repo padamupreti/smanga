@@ -36,7 +36,8 @@ def item_data(request, series=None, item=None, filename=None):
     if '/api/cbz/' in request.path:
         # TODO: get the filename from url
         # extract_cbz(filename)
-        info = extract_cbz('Chainsaw Man v11 (2022) (Digital) (1r0n) (f).cbz')
+        info = extract_cbz(
+            'Vinland Saga Omnibus v05 (2014) (Digital) (danke-Empire).cbz')
         return Response(info)
     item_str = '/chapters' if '/chapters' in request.path else '/volumes'
     items = get_dirnames(f'{series}{item_str}')
