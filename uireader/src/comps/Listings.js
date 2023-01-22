@@ -60,7 +60,11 @@ const Listings = ({ baseUrl }) => {
                     <h1 className="heading">Unmanaged CBZs</h1>
                     <div className="items-container">
                         {data.cbz_list.map((itemName) => (
-                            <Link key={itemName} className="item-btn" to="cbz/">
+                            <Link
+                                key={itemName}
+                                className="item-btn"
+                                to={`cbz/?name=${itemName}`}
+                            >
                                 {itemName}
                             </Link>
                         ))}

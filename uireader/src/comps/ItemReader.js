@@ -7,7 +7,7 @@ import Container from './Container'
 import BottomMenu from './BottomMenu'
 
 const ItemReader = ({ baseUrl }) => {
-    const { pathname } = useLocation()
+    const { pathname, search } = useLocation()
     const itemType = pathname.search('/chapters') >= 0 ? 'chapter' : 'volume'
     const itemTitle = itemType.charAt(0).toUpperCase() + itemType.slice(1)
     const { series, item: itemNum } = useParams()
@@ -15,7 +15,9 @@ const ItemReader = ({ baseUrl }) => {
     if (series && itemNum) {
         fetchUrl = `${baseUrl}/api/series/${series}/${itemType}s/${itemNum}/`
     } else {
-        fetchUrl = `${baseUrl}/api/cbz/`
+        const searchParams = new URLSearchParams(search)
+        const name = searchParams.get('name')
+        fetchUrl = `${baseUrl}/api/cbz/?name=${name}`
     }
     const { data, isPending, error } = useFetch(fetchUrl)
 

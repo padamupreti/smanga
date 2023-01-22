@@ -34,10 +34,9 @@ def items_list(request, series):
 @api_view(['GET'])
 def item_data(request, series=None, item=None, filename=None):
     if '/api/cbz/' in request.path:
-        # TODO: get the filename from url
-        # extract_cbz(filename)
-        info = extract_cbz(
-            'Vinland Saga Omnibus v05 (2014) (Digital) (danke-Empire).cbz')
+        name = request.GET.get('name')
+        # TODO case of when name is not provided through query params
+        info = extract_cbz(name)
         return Response(info)
     item_str = '/chapters' if '/chapters' in request.path else '/volumes'
     items = get_dirnames(f'{series}{item_str}')

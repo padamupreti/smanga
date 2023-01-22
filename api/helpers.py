@@ -113,7 +113,6 @@ def extract_cbz(filename):
             archive.extractall(path=extract_path)
             sorted_namelist = archive.namelist().copy()
             sorted_namelist.sort()
-            print(f'SORTED NAMELIST: {sorted_namelist}')
             for filename in sorted_namelist:
                 item_path = extract_path / filename
                 # TODO: make sure item_path belongs to valid image
