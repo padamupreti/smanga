@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 
 from .helpers import (
     get_dirnames,
@@ -7,8 +8,8 @@ from .helpers import (
     get_series_data,
     get_sibling_items,
     get_img_data,
-    extract_cbz,
-    remove_extracted
+    extract_cbz_data,
+    extract_image_encoding
 )
 
 series_data = get_series_data()
@@ -32,12 +33,7 @@ def items_list(request, series):
 
 
 @api_view(['GET'])
-def item_data(request, series=None, item=None, filename=None):
-    if '/api/cbz/' in request.path:
-        name = request.GET.get('name')
-        # TODO case of when name is not provided through query params
-        info = extract_cbz(name)
-        return Response(info)
+def item_data(request, series=None, item=None):
     item_str = '/chapters' if '/chapters' in request.path else '/volumes'
     items = get_dirnames(f'{series}{item_str}')
     siblings = get_sibling_items(item, items)
@@ -48,3 +44,35 @@ def item_data(request, series=None, item=None, filename=None):
         'img_data': get_img_data(series, item_str[1:-1], item)
     }
     return Response(data)
+
+
+@api_view(['GET'])
+def cbz_metadata(request):
+    name = request.GET.get('name')
+    errored_response = Response(
+        {'message': 'Error processing request'},
+        status=status.HTTP_400_BAD_REQUEST
+    )
+    if name is None:
+        return errored_response
+    img_data = extract_cbz_data(name)
+    if img_data is None:
+        return errored_response
+    return Response({'name': 'CBZ Viewer', 'prev_item': False, 'next_item': False, 'img_data': img_data})
+
+
+@api_view(['GET'])
+def cbz_image_encoding(request):
+    get_qs = request.GET
+    name = get_qs.get('name')
+    image = get_qs.get('image')
+    errored_response = Response(
+        {'message': 'Error processing request'},
+        status=status.HTTP_400_BAD_REQUEST
+    )
+    if name is None or image is None:
+        return errored_response
+    image_encoding = extract_image_encoding(name, image)
+    if image_encoding is None:
+        return errored_response
+    return Response({'encoding': image_encoding})

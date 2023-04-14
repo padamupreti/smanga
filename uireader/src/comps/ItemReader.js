@@ -1,24 +1,10 @@
-import { useLocation } from 'react-router-dom'
-import { useParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import useFetch from '../hooks/useFetch'
 import TopMenu from './TopMenu'
 import Container from './Container'
 import BottomMenu from './BottomMenu'
 
-const ItemReader = ({ baseUrl }) => {
-    const { pathname, search } = useLocation()
-    const itemType = pathname.search('/chapters') >= 0 ? 'chapter' : 'volume'
-    const itemTitle = itemType.charAt(0).toUpperCase() + itemType.slice(1)
-    const { series, item: itemNum } = useParams()
-    let fetchUrl
-    if (series && itemNum) {
-        fetchUrl = `${baseUrl}/api/series/${series}/${itemType}s/${itemNum}/`
-    } else {
-        const searchParams = new URLSearchParams(search)
-        const name = searchParams.get('name')
-        fetchUrl = `${baseUrl}/api/cbz/?name=${name}`
-    }
+const ItemReader = ({ itemType, identifier, fetchUrl, baseUrl }) => {
     const { data, isPending, error } = useFetch(fetchUrl)
 
     const [containFirstImg, setContainFirstImg] = useState(true)
@@ -26,10 +12,6 @@ const ItemReader = ({ baseUrl }) => {
     const [containersLen, setContainersLen] = useState(0)
     const [visibilityIndex, setVisibilityIndex] = useState(0)
     const [isMagEnabled, setIsMagEnabled] = useState(false)
-
-    useEffect(() => {
-        if (data) document.title = `${data.name} | ${itemTitle} ${itemNum}`
-    }, [data, itemTitle, itemNum])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -89,13 +71,14 @@ const ItemReader = ({ baseUrl }) => {
                         showMenus={showMenus}
                         itemInfo={data}
                         itemType={itemType}
-                        itemNum={itemNum}
+                        identifier={identifier}
                         restruct={restructureContainers}
                     />
                     <Container
                         baseUrl={baseUrl}
                         itemInfo={data}
                         itemType={itemType}
+                        identifier={identifier}
                         visibilityIndex={visibilityIndex}
                         isMagEnabled={isMagEnabled}
                         containFirstImg={containFirstImg}

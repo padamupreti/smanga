@@ -4,7 +4,9 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from .views import (
     series_view,
     items_list,
-    item_data
+    item_data,
+    cbz_metadata,
+    cbz_image_encoding
 )
 from .converters import ItemNum
 
@@ -18,9 +20,8 @@ urlpatterns = [
          item_data, name='api-chapter'),
     path('series/<slug:series>/volumes/<vorc:item>/',
          item_data, name='api-volume'),
-    # TODO: create a mechanism for taking in filenames through url
-    # path('cbz/<slug:filename>/', item_data, name='api-cbz'),
-    path('cbz/', item_data, name='api-cbz'),
+    path('cbz/', cbz_metadata, name='api-cbz-meta'),
+    path('cbz/data/', cbz_image_encoding, name='api-cbz-encodings'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

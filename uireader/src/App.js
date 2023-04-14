@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Listings from './comps/Listings'
 import ItemListings from './comps/ItemListings'
-import ItemReader from './comps/ItemReader'
+import ReaderProvider from './comps/ReaderProvider'
 
 const App = () => {
     const baseUrl = 'http://localhost:8000'
@@ -26,15 +26,15 @@ const App = () => {
                 />
                 <Route
                     path="/:series/chapters/:item/"
-                    element={<ItemReader baseUrl={baseUrl} />}
+                    element={<ReaderProvider baseUrl={baseUrl} />}
                 />
                 <Route
                     path="/:series/volumes/:item/"
-                    element={<ItemReader baseUrl={baseUrl} />}
+                    element={<ReaderProvider baseUrl={baseUrl} />}
                 />
                 <Route
                     path="/cbz/"
-                    element={<ItemReader baseUrl={baseUrl} />}
+                    element={<ReaderProvider baseUrl={baseUrl} />}
                 />
             </Routes>
         </Router>

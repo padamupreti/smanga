@@ -1,5 +1,5 @@
 from os.path import basename, isdir
-import pathlib
+import base64
 import zipfile
 from statistics import mode
 from PIL import Image
@@ -30,7 +30,6 @@ def get_series_data():
             'has_chapters': has_items('chapters', _dir),
             'has_volumes': has_items('volumes', _dir)
         }
-    del series_data['.extract']
     return series_data
 
 
@@ -47,9 +46,9 @@ def get_img_width(image_path):
     return image_width
 
 
-def get_common_width(image_pathlist):
+def get_common_width(images_path):
     widths = [get_img_width(image_path)
-              for image_path in image_pathlist]
+              for image_path in images_path.iterdir()]
     return mode(widths)
 
 
@@ -59,6 +58,7 @@ def get_img_list(rel_ch_path):
     for image_path in ch_path.iterdir():
         data = {
             'image_url': f'{rel_ch_path}/{basename(image_path)}',
+            'image_alt': basename(image_path),
             'width': get_img_width(image_path)
         }
         img_list.append(data)
@@ -77,7 +77,6 @@ def get_img_data(series, item_type, item_num):
         return {'common_width': common_width, 'media_url': media_url, 'img_list': img_list}
     relative_path = f'{series}/{item_type}s/{item_num}'
     abs_path = media_root / relative_path
-    # TODO fix get_common_width call below passing image path list
     common_width = get_common_width(abs_path)
     img_list = get_img_list(relative_path)
     if item_type == 'volume' or (item_type == 'chapter' and settings.STORE_CH):
@@ -91,9 +90,6 @@ def get_img_data(series, item_type, item_num):
     return {'common_width': common_width, 'media_url': media_url, 'img_list': img_list}
 
 
-# Comic Book Zip helpers
-
-
 def get_cbz_names():
     names = [basename(f) for f in media_root.iterdir()
              if f.is_file and f.suffix == '.cbz']
@@ -101,35 +97,41 @@ def get_cbz_names():
     return names
 
 
-def extract_cbz(filename):
-    # TODO: look up if filename is already extracted and do nothing if it is
-    cbz_filepath = media_root / filename
-    if not zipfile.is_zipfile(cbz_filepath):
-        return []
-    datalist = []
-    try:
-        with zipfile.ZipFile(cbz_filepath) as archive:
-            extract_path = media_root / '.extract' / filename.rstrip('.cbz')
-            archive.extractall(path=extract_path)
-            sorted_namelist = archive.namelist().copy()
-            sorted_namelist.sort()
-            for filename in sorted_namelist:
-                item_path = extract_path / filename
-                # TODO: make sure item_path belongs to valid image
-                datalist.append({
-                    'image_url': item_path.__str__().lstrip(f'{media_root}/'),
-                    'width': get_img_width(item_path)
-                })
-            return {'img_data': {
-                'common_width': get_common_width([extract_path / f for f in sorted_namelist]),
-                'media_url': media_url,
-                'img_list': datalist
-            }}
-    except zipfile.BadZipFile:
-        return []
+def extract_cbz_data(name):
+    widths_list = []
+    images = []
+
+    path = media_root / name
+    if not zipfile.is_zipfile(path):
+        return None
+    with zipfile.ZipFile(path) as archive:
+        namelist = archive.namelist()
+        if len(namelist) == 0:
+            return None
+        for i, item in enumerate(namelist):
+            if item.endswith('.jpg') or item.endswith('.png'):
+                with archive.open(item) as f:
+                    with Image.open(f) as image:
+                        width = image.width
+                        widths_list.append(width)
+                        images.append(
+                            {'image_alt': basename(item), 'width': width})
+
+    images_data = {
+        'common_width': mode(widths_list),
+        'img_list': images
+    }
+
+    return images_data
 
 
-def remove_extracted():
-    # TODO: look up implementing removing everything recursively from directory and implement
-    extract_dir = pathlib.Path('.extract')
-    print(f'removing everything in {extract_dir}')
+def extract_image_encoding(cbz_name, image_name):
+    path = media_root / cbz_name
+    if not zipfile.is_zipfile(path):
+        return None
+    encoded_image = None
+    with zipfile.ZipFile(path) as archive:
+        for item in archive.namelist():
+            if basename(item) == image_name:
+                encoded_image = base64.b64encode(archive.read(item))
+    return encoded_image

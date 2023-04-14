@@ -3,12 +3,12 @@ import { FaRedoAlt, FaArrowLeft, FaArrowRight, FaHome } from 'react-icons/fa'
 import '../styles/readermenus.scss'
 import '../styles/topmenu.scss'
 
-const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
+const TopMenu = ({ showMenus, itemInfo, itemType, identifer, restruct }) => {
     const { name, prev_item: prevItem, next_item: nextItem } = itemInfo
 
     return (
         <div className={showMenus ? 'top-menu visible-menu' : 'top-menu'}>
-            <p>{name ? name : 'CBZ Viewer'}</p>
+            <p>{name}</p>
             <div>
                 {itemType === 'chapter' && (
                     <button
@@ -26,9 +26,9 @@ const TopMenu = ({ showMenus, itemInfo, itemType, itemNum, restruct }) => {
                 >
                     <FaArrowLeft />
                 </Link>
-                {itemNum && (
+                {itemType !== 'CBZ' && identifer && (
                     <Link to="./../" className="change change-text">
-                        {'#' + itemNum}
+                        {'#' + identifer}
                     </Link>
                 )}
                 <Link

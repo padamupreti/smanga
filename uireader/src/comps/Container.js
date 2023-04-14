@@ -6,6 +6,7 @@ const Container = ({
     baseUrl,
     itemInfo,
     itemType,
+    identifier,
     visibilityIndex,
     isMagEnabled,
     containFirstImg,
@@ -52,8 +53,8 @@ const Container = ({
             (imgData) =>
                 (key +=
                     viewData[0] === imgData
-                        ? imgData.image_url
-                        : `+${imgData.image_url}`)
+                        ? imgData.image_alt
+                        : `+${imgData.image_alt}`)
         )
         return key
     }
@@ -71,9 +72,15 @@ const Container = ({
                 >
                     {viewData.map((imgData) => (
                         <ImageContainer
-                            key={`${imgData.image_url}`}
-                            dataSrc={`${baseUrl}${mediaUrl}${imgData.image_url}`}
-                            imgAlt={`${imgData.image_url}`}
+                            key={`${imgData.image_alt}`}
+                            itemType={itemType}
+                            baseUrl={baseUrl}
+                            dataSrc={
+                                itemType !== 'CBZ'
+                                    ? `${baseUrl}${mediaUrl}${imgData.image_url}`
+                                    : identifier
+                            }
+                            imgAlt={`${imgData.image_alt}`}
                             viewContainerIndex={viewDataList.indexOf(viewData)}
                             visibilityIndex={visibilityIndex}
                             isMagEnabled={isMagEnabled}
