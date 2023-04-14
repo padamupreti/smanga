@@ -108,6 +108,7 @@ def extract_cbz_data(name):
         namelist = archive.namelist()
         if len(namelist) == 0:
             return None
+        namelist.sort()
         for i, item in enumerate(namelist):
             if item.endswith('.jpg') or item.endswith('.png'):
                 with archive.open(item) as f:
