@@ -30,12 +30,24 @@ const ReaderProvider = ({ baseUrl }) => {
     document.title = docTitle
 
     return (
-        <ItemReader
-            itemType={itemType}
-            identifier={identifier}
-            fetchUrl={fetchUrl}
-            baseUrl={baseUrl}
-        />
+        <>
+            {itemType === 'CBZ' && !identifier && (
+                <div className="msg-div">
+                    <div>
+                        Query Parameter of name is required for this URL (i.e.
+                        /cbz?name=something)
+                    </div>
+                </div>
+            )}
+            {identifier && (
+                <ItemReader
+                    itemType={itemType}
+                    identifier={identifier}
+                    fetchUrl={fetchUrl}
+                    baseUrl={baseUrl}
+                />
+            )}
+        </>
     )
 }
 
