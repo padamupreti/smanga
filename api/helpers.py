@@ -126,13 +126,15 @@ def extract_cbz_data(name):
     return images_data
 
 
-def extract_image_encoding(cbz_name, image_name):
+def extract_image_encoding(cbz_name, index):
     path = media_root / cbz_name
     if not zipfile.is_zipfile(path):
         return None
     encoded_image = None
     with zipfile.ZipFile(path) as archive:
-        for item in archive.namelist():
-            if basename(item) == image_name:
-                encoded_image = base64.b64encode(archive.read(item))
+        try:
+            item = archive.namelist()[int(index)]
+        except (IndexError, ValueError, TypeError):
+            return None
+        encoded_image = base64.b64encode(archive.read(item))
     return encoded_image

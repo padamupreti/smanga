@@ -4,6 +4,7 @@ const ImageContainer = ({
     itemType,
     baseUrl,
     dataSrc,
+    imgIndex,
     imgAlt,
     viewContainerIndex,
     visibilityIndex,
@@ -15,11 +16,11 @@ const ImageContainer = ({
     const [clist, setClist] = useState('image')
 
     useEffect(() => {
-        if (Math.abs(viewContainerIndex - visibilityIndex) <= 2) {
+        if (!loaded && Math.abs(viewContainerIndex - visibilityIndex) <= 2) {
             if (!isCBZ) setSrc(dataSrc)
             else {
                 fetch(
-                    `${baseUrl}/api/cbz/data/?name=${dataSrc}&image=${imgAlt}`
+                    `${baseUrl}/api/cbz/data/?name=${dataSrc}&index=${imgIndex}`
                 )
                     .then((res) => res.json())
                     .then((data) => {
@@ -30,7 +31,16 @@ const ImageContainer = ({
                     .catch((error) => console.error(error))
             }
         }
-    }, [isCBZ, baseUrl, dataSrc, imgAlt, viewContainerIndex, visibilityIndex])
+    }, [
+        loaded,
+        isCBZ,
+        baseUrl,
+        dataSrc,
+        imgIndex,
+        imgAlt,
+        viewContainerIndex,
+        visibilityIndex,
+    ])
 
     useEffect(() => {
         isMagEnabled ? setClist('image image-enlarged') : setClist('image')

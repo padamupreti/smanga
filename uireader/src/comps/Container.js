@@ -25,6 +25,7 @@ const Container = ({
         let toSkip = false
         for (let i = 0; i < imgList.length; i++) {
             const img = imgList[i]
+            img.index = i
             if (itemType === 'chapter' && containFirstImg && i === 0) {
                 tempViewList.push([img])
                 continue
@@ -72,7 +73,7 @@ const Container = ({
                 >
                     {viewData.map((imgData) => (
                         <ImageContainer
-                            key={`${imgData.image_alt}`}
+                            key={imgData.image_alt}
                             itemType={itemType}
                             baseUrl={baseUrl}
                             dataSrc={
@@ -80,7 +81,8 @@ const Container = ({
                                     ? `${baseUrl}${mediaUrl}${imgData.image_url}`
                                     : identifier
                             }
-                            imgAlt={`${imgData.image_alt}`}
+                            imgIndex={imgData.index}
+                            imgAlt={imgData.image_alt}
                             viewContainerIndex={viewDataList.indexOf(viewData)}
                             visibilityIndex={visibilityIndex}
                             isMagEnabled={isMagEnabled}

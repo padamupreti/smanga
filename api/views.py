@@ -65,14 +65,14 @@ def cbz_metadata(request):
 def cbz_image_encoding(request):
     get_qs = request.GET
     name = get_qs.get('name')
-    image = get_qs.get('image')
+    index = get_qs.get('index')
     errored_response = Response(
         {'message': 'Error processing request'},
         status=status.HTTP_400_BAD_REQUEST
     )
-    if name is None or image is None:
+    if name is None or index is None:
         return errored_response
-    image_encoding = extract_image_encoding(name, image)
+    image_encoding = extract_image_encoding(name, index)
     if image_encoding is None:
         return errored_response
     return Response({'encoding': image_encoding})
