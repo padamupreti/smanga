@@ -76,7 +76,7 @@ const Container = ({
                             key={imgData.image_alt}
                             itemType={itemType}
                             baseUrl={baseUrl}
-                            dataSrc={
+                            identifier={
                                 itemType !== 'CBZ'
                                     ? `${baseUrl}${mediaUrl}${imgData.image_url}`
                                     : identifier

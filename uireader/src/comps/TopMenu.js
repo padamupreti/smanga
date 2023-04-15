@@ -10,7 +10,7 @@ const TopMenu = ({ showMenus, itemInfo, itemType, identifier, restruct }) => {
         <div className={showMenus ? 'top-menu visible-menu' : 'top-menu'}>
             <p>{name}</p>
             <div>
-                {prevItem && nextItem && identifier && (
+                {itemType !== 'CBZ' && (
                     <>
                         {itemType === 'chapter' && (
                             <button
