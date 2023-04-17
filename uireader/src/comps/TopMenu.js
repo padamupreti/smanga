@@ -15,7 +15,7 @@ const TopMenu = ({ showMenus, itemInfo, itemType, identifier, restruct }) => {
                         {itemType === 'chapter' && (
                             <button
                                 className="change re-toggle"
-                                onClick={() => restruct()}
+                                onClick={restruct}
                             >
                                 <FaRedoAlt />
                             </button>

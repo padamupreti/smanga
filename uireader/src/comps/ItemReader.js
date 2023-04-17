@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import useFetch from '../hooks/useFetch'
 import TopMenu from './TopMenu'
 import Container from './Container'
@@ -7,11 +7,43 @@ import BottomMenu from './BottomMenu'
 const ItemReader = ({ itemType, identifier, fetchUrl, baseUrl }) => {
     const { data, isPending, error } = useFetch(fetchUrl)
 
+    const [viewDataList, setViewDataList] = useState([])
     const [containFirstImg, setContainFirstImg] = useState(true)
     const [showMenus, setShowMenus] = useState(false)
-    const [containersLen, setContainersLen] = useState(0)
     const [visibilityIndex, setVisibilityIndex] = useState(0)
     const [isMagEnabled, setIsMagEnabled] = useState(false)
+
+    useLayoutEffect(() => {
+        if (data) {
+            let tempViewList = []
+            const { img_data: imgData } = data
+            const { common_width: commonWidth, img_list: imgList } = imgData
+
+            let toSkip = false
+            for (let i = 0; i < imgList.length; i++) {
+                const img = imgList[i]
+                img.index = i
+                if (itemType === 'chapter' && containFirstImg && i === 0) {
+                    tempViewList.push([img])
+                    continue
+                }
+                if (img.width / commonWidth <= 1.4) {
+                    if (!toSkip) {
+                        let imgObjList = [img]
+                        const nextImg = imgList[i + 1]
+                        if (nextImg && nextImg.width / commonWidth <= 1.4) {
+                            imgObjList.push(nextImg)
+                            toSkip = true
+                        }
+                        tempViewList.push(imgObjList)
+                    } else toSkip = false
+                } else tempViewList.push([img])
+            }
+
+            setViewDataList(tempViewList)
+            showFirstContainer()
+        }
+    }, [baseUrl, data, itemType, containFirstImg])
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -21,7 +53,7 @@ const ItemReader = ({ itemType, identifier, fetchUrl, baseUrl }) => {
                 e.code === 'ArrowDown' ||
                 e.code === 'KeyJ'
             ) {
-                const lastIndex = containersLen - 1
+                const lastIndex = viewDataList.length - 1
                 if (visibilityIndex < lastIndex)
                     setVisibilityIndex(visibilityIndex + 1)
             } else if (
@@ -39,7 +71,7 @@ const ItemReader = ({ itemType, identifier, fetchUrl, baseUrl }) => {
 
         window.addEventListener('keydown', handleKeyDown)
         return () => window.removeEventListener('keydown', handleKeyDown)
-    }, [containersLen, visibilityIndex, isMagEnabled])
+    }, [viewDataList, visibilityIndex, isMagEnabled])
 
     const restructureContainers = () => setContainFirstImg(!containFirstImg)
     const showFirstContainer = () => setVisibilityIndex(0)
@@ -75,20 +107,18 @@ const ItemReader = ({ itemType, identifier, fetchUrl, baseUrl }) => {
                         restruct={restructureContainers}
                     />
                     <Container
+                        viewDataList={viewDataList}
                         baseUrl={baseUrl}
-                        itemInfo={data}
+                        mediaUrl={data.img_data.media_url}
                         itemType={itemType}
                         identifier={identifier}
                         visibilityIndex={visibilityIndex}
                         isMagEnabled={isMagEnabled}
-                        containFirstImg={containFirstImg}
-                        setContainersLen={setContainersLen}
-                        showFirstContainer={showFirstContainer}
                         onClick={handleClick}
                     />
                     <BottomMenu
                         showMenus={showMenus}
-                        containersLen={containersLen}
+                        containersLen={viewDataList.length}
                         sliderValue={visibilityIndex + 1}
                         onInput={handleSliderInput}
                     />

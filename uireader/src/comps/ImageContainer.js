@@ -10,11 +10,11 @@ const ImageContainer = ({
     visibilityIndex,
     isMagEnabled,
 }) => {
-    const isCBZ = itemType === 'CBZ'
     const [src, setSrc] = useState('')
-    const [prevId, setPrevId] = useState(identifier)
     const [loaded, setLoaded] = useState(false)
-    const [clist, setClist] = useState('image')
+    const [prevId, setPrevId] = useState(identifier)
+    const isCBZ = itemType === 'CBZ'
+    const imgClassName = isMagEnabled ? 'image image-enlarged' : 'image'
 
     useEffect(() => {
         // The below conditional optimizes image fetching from backend and rendering on browser
@@ -38,7 +38,7 @@ const ImageContainer = ({
         ) {
             setPrevId(identifier)
             if (!isCBZ) setSrc(identifier)
-            else {
+            else
                 fetch(
                     `${baseUrl}/api/cbz/data/?name=${identifier}&index=${imgIndex}`
                 )
@@ -49,7 +49,6 @@ const ImageContainer = ({
                         setSrc(imageSource)
                     })
                     .catch((error) => console.error(error))
-            }
         }
     }, [
         src,
@@ -63,10 +62,6 @@ const ImageContainer = ({
         imgAlt,
     ])
 
-    useEffect(() => {
-        isMagEnabled ? setClist('image image-enlarged') : setClist('image')
-    }, [isMagEnabled])
-
     return (
         <div className="img-container">
             {!loaded && (
@@ -79,7 +74,7 @@ const ImageContainer = ({
             <img
                 src={src}
                 alt={imgAlt}
-                className={clist}
+                className={imgClassName}
                 onLoad={() => setLoaded(true)}
             />
         </div>
