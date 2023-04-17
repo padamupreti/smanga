@@ -80,7 +80,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-Finally, navigate into `uireader` and run the following to build the UI:
+Finally, navigate into `client` and run the following to build the UI:
 
 ```
 npm install
