@@ -59,7 +59,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'uireader/build',
+            BASE_DIR / 'client/dist',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -124,23 +124,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/assets/'
 MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'uireader/build/static',
+    BASE_DIR / 'client/dist/assets',
 ]
-
-# MEDIA_ROOT = BASE_DIR / 'static/images'
 MEDIA_ROOT = Path(r'/home/padam/Mixed_Bag/Manga').resolve()
 
 CORS_ORIGIN_ALLOW_ALL = False
-
 CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:8000',
-    'http://localhost:8000',
-    'http://127.0.0.1:3000',
-    'http://localhost:3000',
+    'http://127.0.0.1:5173',
+    'http://localhost:5173',
 ]
 
 STORE_CH = False
