@@ -8,7 +8,7 @@ const ItemReader = ({ itemType, identifier, fetchUrl, baseUrl }) => {
     const { data, isPending, error } = useFetch(fetchUrl)
 
     const [viewDataList, setViewDataList] = useState([])
-    const [containFirstImg, setContainFirstImg] = useState(true)
+    const [containFirstImg, setContainFirstImg] = useState(false)
     const [showMenus, setShowMenus] = useState(false)
     const [visibilityIndex, setVisibilityIndex] = useState(0)
     const [isMagEnabled, setIsMagEnabled] = useState(false)
