@@ -22,7 +22,6 @@ const ReaderProvider = ({ baseUrl }) => {
         docTitle = 'CBZ Viewer'
         const searchParams = new URLSearchParams(search)
         const archiveName = searchParams.get('name')
-        // TODO: condition when name is not provided in url params
         identifier = archiveName
         fetchUrl = `${baseUrl}/api/cbz/?name=${archiveName}`
     }
